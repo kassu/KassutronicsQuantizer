@@ -129,6 +129,7 @@ void resetCVState(byte i) {
 void processChannel(byte i, int newadcval) {
   // State variables
   static byte outval[2] = {0, 0};
+  static byte lastgateoutval[2] = {0, 0};
   static int gatecounter[2] = {0, 0}; 
   static bool freerunning[2] = {true, true};
   static int triggercounter[2] = {0, 0};
@@ -204,7 +205,15 @@ void processChannel(byte i, int newadcval) {
   
   // Check if gate should do something. Does not depend on mode.
   if (gatecounter[i] == 0) {
-    GATE_ON(i);
+    /* It may happen that outval has changed several times during
+     *  gatedelay, and returned to the original value before any gate has been output. 
+     *  This happens in particular with a noisy input signal.
+     *  In this case we suppress the gate output, making the quantizer more resilient to input noise.
+     */
+    if (outval[i] != lastgateoutval[i]) {
+      GATE_ON(i);
+      lastgateoutval[i] = outval[i];
+    }
   }
   if (gatecounter[i] == gatelength) {
     GATE_OFF(i);

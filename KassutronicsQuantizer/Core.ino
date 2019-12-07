@@ -210,7 +210,7 @@ void processChannel(byte i, int newadcval) {
      *  This happens in particular with a noisy input signal.
      *  In this case we suppress the gate output, making the quantizer more resilient to input noise.
      */
-    if (outval[i] != lastgateoutval[i]) {
+    if (!freerunning[i] || (outval[i] != lastgateoutval[i])) {
       GATE_ON(i);
       lastgateoutval[i] = outval[i];
     }

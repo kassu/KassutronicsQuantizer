@@ -40,11 +40,11 @@ volatile bool eebusy = false;
 void loadPersistentState() {
  if (EEPROM.read(EE_ADDR_ID) == 0x01 && !EE_RESET) {
     EEPROM.get(EE_ADDR_STATE, state);
-    updateRotation();
-    updateGatelength();
   } else {
     initializePersistentState();
   }
+  updateRotation();
+  updateGatelength();
 }
 
 void initializePersistentState() {

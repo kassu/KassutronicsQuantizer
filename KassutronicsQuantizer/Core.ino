@@ -234,7 +234,7 @@ void processChannel(byte i, int newadcval) {
     // Check if an edge has occured using the interrupt flag
     if ( (EIFR & (1<<i)) ) {
       // Clear interrupt flag by SETTING the bit
-      sbi(EIFR, i);
+      EIFR &= (1<<i);
       
       // Debounce
       if (triggercounter[i] >= 0) {

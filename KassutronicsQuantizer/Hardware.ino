@@ -145,11 +145,11 @@ void setupGPIO() {
   sbi(GATE_DDR, GATE_BIT+1); cbi(GATE_PORT, GATE_BIT+1); // PC5 (GATEB) = output, low  
 
   // Shift register front panel interface
-  sbi(SCL_DDR, SCL_BIT); sbi(SCL_PORT, 0); // SCL output, initialize high
-  cbi(SDI_DDR, SDI_BIT); cbi(SDI_PORT, 4); // SDI input, no pullup
-  sbi(SLI_DDR, SLI_BIT); sbi(SLI_PORT, 5); // SLI output, initialize high
-  sbi(SDO_DDR, SDO_BIT); cbi(SDO_PORT, 6); // SDO output, initialize low (don't care)
-  sbi(SLO_DDR, SLO_BIT); sbi(SLO_PORT, 7); // SLO output, initialize high
+  sbi(SCL_DDR, SCL_BIT); sbi(SCL_PORT, SCL_BIT); // SCL output, initialize high
+  cbi(SDI_DDR, SDI_BIT); cbi(SDI_PORT, SDI_BIT); // SDI input, no pullup
+  sbi(SLI_DDR, SLI_BIT); sbi(SLI_PORT, SLI_BIT); // SLI output, initialize high
+  sbi(SDO_DDR, SDO_BIT); cbi(SDO_PORT, SDO_BIT); // SDO output, initialize low (don't care)
+  sbi(SLO_DDR, SLO_BIT); sbi(SLO_PORT, SLO_BIT); // SLO output, initialize high
   
   // Debug pins
 #ifdef DEBUG_PINS
